@@ -5,7 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import ru.job4j.cars.model.User;
 
-
 import java.util.List;
 import java.util.Optional;
 
