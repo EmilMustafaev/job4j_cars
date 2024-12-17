@@ -26,7 +26,6 @@ public class UserRepository {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            throw e;
         } finally {
             session.close();
         }
@@ -50,7 +49,6 @@ public class UserRepository {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            throw e;
         } finally {
             session.close();
         }
