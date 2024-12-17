@@ -90,8 +90,7 @@ public class UserRepository {
             return result;
         } catch (Exception e) {
             session.getTransaction().rollback();
-        }
-        finally {
+        } finally {
             session.close();
         }
         return result;
@@ -112,8 +111,7 @@ public class UserRepository {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-        }
-        finally {
+        } finally {
             session.close();
         }
         return result;
@@ -135,8 +133,7 @@ public class UserRepository {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-        }
-        finally {
+        } finally {
             session.close();
         }
         return result;
@@ -158,8 +155,7 @@ public class UserRepository {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-        }
-        finally {
+        } finally {
             session.close();
         }
         return result;
