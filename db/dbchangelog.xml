@@ -8,5 +8,7 @@
     <include file="scripts/001_ddl_create_table_autouser.sql" relativeToChangelogFile="true"/>
     <include file="scripts/002_ddl_create_table_autopost.sql" relativeToChangelogFile="true"/>
     <include file="scripts/update_004.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/update_005.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/006_ddl_create_participates_table.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
