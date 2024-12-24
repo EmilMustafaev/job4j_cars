@@ -39,4 +39,8 @@ public class Post {
     )
     private List<User> subscribers = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_id", referencedColumnName = "id", nullable = false)
+    private Car car;
+
 }

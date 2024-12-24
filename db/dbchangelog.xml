@@ -10,5 +10,11 @@
     <include file="scripts/update_004.sql" relativeToChangelogFile="true"/>
     <include file="scripts/update_005.sql" relativeToChangelogFile="true"/>
     <include file="scripts/006_ddl_create_participates_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/008_ddl_create_table_engine.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/007_ddl_create_table_car.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/009_ddl_create_table_owners.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/010_ddl_create_table_history_owners.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/011_ddl_create_table_history.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/012_dml_alter_table_auto_post.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
