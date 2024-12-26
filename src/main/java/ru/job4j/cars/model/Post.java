@@ -24,7 +24,7 @@ public class Post {
     private LocalDateTime created = LocalDateTime.now();
 
     @ManyToOne
-    @JoinColumn(name = "auto_user_id", nullable = false)
+    @JoinColumn(name = "auto_user_id", nullable = true)
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -40,9 +40,10 @@ public class Post {
     private List<User> subscribers = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "car_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "car_id", referencedColumnName = "id", nullable = true)
     private Car car;
 
+    @Column(name = "has_photo")
     private boolean hasPhoto;
 
 }
