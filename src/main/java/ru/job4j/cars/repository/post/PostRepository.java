@@ -24,8 +24,8 @@ public class PostRepository {
 
     public List<Post> findPostsWithPhotos() {
         String query = """
-            FROM Post p WHERE size(p.priceHistory) > 0
-        """;
+        FROM Post p WHERE p.hasPhoto = true
+    """;
         return crudRepository.query(query, Post.class);
     }
 

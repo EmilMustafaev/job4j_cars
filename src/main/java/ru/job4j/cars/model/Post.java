@@ -43,4 +43,6 @@ public class Post {
     @JoinColumn(name = "car_id", referencedColumnName = "id", nullable = false)
     private Car car;
 
+    private boolean hasPhoto;
+
 }
