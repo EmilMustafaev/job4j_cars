@@ -50,7 +50,6 @@ class PostRepositoryTest {
         Post post = new Post();
         post.setDescription("Test Post");
         post.setCreated(LocalDateTime.now());
-        post.setHasPhoto(true);
 
         Optional<Post> savedPost = postRepository.create(post);
         assertTrue(savedPost.isPresent());

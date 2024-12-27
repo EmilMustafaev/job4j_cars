@@ -43,9 +43,6 @@ public class Post {
     @JoinColumn(name = "car_id", referencedColumnName = "id", nullable = true)
     private Car car;
 
-    @Column(name = "has_photo")
-    private boolean hasPhoto;
-
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Photo> photos = new ArrayList<>();
 
