@@ -17,5 +17,6 @@
     <include file="scripts/011_ddl_create_table_history.sql" relativeToChangelogFile="true"/>
     <include file="scripts/012_dml_alter_table_auto_post.sql" relativeToChangelogFile="true"/>
     <include file="scripts/013_dml_alter_table_auto_post.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/014_ddl_create_table_photos.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

@@ -46,4 +46,7 @@ public class Post {
     @Column(name = "has_photo")
     private boolean hasPhoto;
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Photo> photos = new ArrayList<>();
+
 }

@@ -4,6 +4,7 @@ import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.*;
 import ru.job4j.cars.model.Car;
 import ru.job4j.cars.model.Engine;
+import ru.job4j.cars.model.Photo;
 import ru.job4j.cars.model.Post;
 import ru.job4j.cars.repository.CrudRepository;
 
@@ -39,6 +40,7 @@ class PostRepositoryTest {
 
     @AfterEach
     void cleanUpDatabase() {
+        crudRepository.run("DELETE FROM Photo", Map.of());
         crudRepository.run("DELETE FROM Post", Map.of());
     }
 
@@ -60,14 +62,23 @@ class PostRepositoryTest {
         Post post = new Post();
         post.setDescription("Initial Description");
         post.setCreated(LocalDateTime.now());
-        post.setHasPhoto(false);
+
+        Photo photo1 = new Photo();
+        photo1.setUrl("http://example.com/photo1.jpg");
+        photo1.setPost(post);
+        post.getPhotos().add(photo1);
 
         Optional<Post> savedPost = postRepository.create(post);
         assertTrue(savedPost.isPresent());
 
         Post updatedPost = savedPost.get();
         updatedPost.setDescription("Updated Description");
-        updatedPost.setHasPhoto(true);
+
+        Photo photo2 = new Photo();
+        photo2.setUrl("http://example.com/photo2.jpg");
+        photo2.setPost(updatedPost);
+        updatedPost.getPhotos().clear();
+        updatedPost.getPhotos().add(photo2);
 
         boolean isUpdated = postRepository.update(updatedPost);
         assertTrue(isUpdated);
@@ -75,7 +86,10 @@ class PostRepositoryTest {
         List<Post> allPosts = postRepository.findPostsWithPhotos();
         assertEquals(1, allPosts.size());
         assertEquals("Updated Description", allPosts.get(0).getDescription());
+        assertEquals(1, allPosts.get(0).getPhotos().size());
+        assertEquals("http://example.com/photo2.jpg", allPosts.get(0).getPhotos().get(0).getUrl());
     }
+
 
     @Test
     void whenDeletePostThenCannotFindIt() {
@@ -109,22 +123,20 @@ class PostRepositoryTest {
 
     @Test
     void whenFindPostsWithPhotosThenReturnPosts() {
-        Post post1 = new Post();
-        post1.setDescription("Photo Post");
-        post1.setCreated(LocalDateTime.now());
-        post1.setHasPhoto(true);
+        Photo photo = new Photo();
+        photo.setUrl("http://example.com/photo1.jpg");
 
-        Post post2 = new Post();
-        post2.setDescription("No Photo Post");
-        post2.setCreated(LocalDateTime.now());
-        post2.setHasPhoto(false);
+        Post post = new Post();
+        post.setDescription("Post with photo");
+        post.setCreated(LocalDateTime.now());
+        post.getPhotos().add(photo);
+        photo.setPost(post);
 
-        postRepository.create(post1);
-        postRepository.create(post2);
+        postRepository.create(post);
 
         List<Post> posts = postRepository.findPostsWithPhotos();
         assertEquals(1, posts.size());
-        assertEquals("Photo Post", posts.get(0).getDescription());
+        assertEquals("Post with photo", posts.get(0).getDescription());
     }
 
     @Test

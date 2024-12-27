@@ -6,6 +6,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.springframework.stereotype.Repository;
+import ru.job4j.cars.model.Photo;
 import ru.job4j.cars.model.Post;
 import ru.job4j.cars.repository.CrudRepository;
 import java.time.LocalDateTime;
@@ -32,15 +33,24 @@ public class PostRepository  {
 
     public boolean update(Post post) {
         return crudRepository.tx(session -> {
+            session.createQuery("DELETE FROM Photo WHERE post.id = :postId")
+                    .setParameter("postId", post.getId())
+                    .executeUpdate();
+
+            for (Photo photo : post.getPhotos()) {
+                photo.setPost(post);
+                session.persist(photo);
+            }
             int result = session.createQuery(
-                            "UPDATE Post SET description = :fDescription, hasPhoto = :fHasPhoto WHERE id = :fId")
+                            "UPDATE Post SET description = :fDescription WHERE id = :fId")
                     .setParameter("fDescription", post.getDescription())
-                    .setParameter("fHasPhoto", post.isHasPhoto())
                     .setParameter("fId", post.getId())
                     .executeUpdate();
+
             return result > 0;
         });
     }
+
 
 
     public boolean delete(Integer id) {
@@ -61,8 +71,11 @@ public class PostRepository  {
 
     public List<Post> findPostsWithPhotos() {
         String query = """
-        FROM Post p WHERE p.hasPhoto = true
-    """;
+        SELECT DISTINCT p
+        FROM Post p
+        JOIN FETCH p.photos
+        WHERE SIZE(p.photos) > 0
+        """;
         return crudRepository.query(query, Post.class);
     }
 
